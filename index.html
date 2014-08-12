@@ -22,7 +22,7 @@
 </div>
 
 <script type="text/template" id="contact-list-item">
-    <li><%- firstName %> <%- lastName %></li>
+    <%- firstName %> <%- lastName %>
 </script>
 
 <script src="./assets/js/vendor/jquery.js"></script>
@@ -50,7 +50,7 @@
 
     //--------------------
     // Define and instantiate the view for each individual Model within a CollectionView
-    ContactManager.ContactItemView = Marionette.ItemView.extend({ template: "#contact-list-item" });
+    ContactManager.ContactItemView = Marionette.ItemView.extend({ tagName: "li", template: "#contact-list-item" });
 
     // Define and Instantiate a Marionette CollectionView object
     // which contain the objects of type ContactManager.ContactItemView
