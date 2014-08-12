@@ -58,7 +58,16 @@
 
     // Define and Instantiate the View object
     ContactManager.ContactView = Marionette.ItemView.extend({
-        template: "#contact-template"
+        template: "#contact-template",
+
+        // Inherit and override event handlers
+        events: {
+            "click p": "alertPhoneNumber"
+        },
+
+        alertPhoneNumber: function() { //ReSharper thinks it's unused, but it's declared in the event above.
+            alert(this.model.escape("phoneNumber"));
+        }
     });
 
     // Create On-Start method which
