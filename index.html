@@ -34,7 +34,7 @@
 </script>
 
 <script type="text/template" id="contact-template">
-    <p><%- firstName %> <%- lastName %></p>
+    <p><%- firstName %> <%- lastName %> <%- phoneNumber %></p>
 </script>
 
 <script src="./assets/js/vendor/jquery.js"></script>
@@ -53,8 +53,9 @@
         mainRegion: "#main-region"
     });
 
-    // Define and Instantiate a Model object
-    ContactManager.Contact = Backbone.Model.extend({});
+    // Define and Instantiate a Model object. Set defaults for instances where data may be missing, etc...
+    // ContactManager.Contact = Backbone.Model.extend({}); // Would break if someone didn't have firstName.
+    ContactManager.Contact = Backbone.Model.extend({ defaults: { firstName: "", lastName: "", phoneNumber: "" }});
 
     // Define and Instantiate the View object
     ContactManager.ContactView = Marionette.ItemView.extend({
@@ -67,7 +68,7 @@
 
         // (Model) Declare the contact object
         var alice = new ContactManager.Contact({
-            firstName: "Alice",
+            firstName: "Alice", // W/O our defaults, would crash if firstName not provided, etc...
             lastName: "Arten",
             phoneNumber: "555-1234"
         });
