@@ -46,7 +46,12 @@
     ContactManager.Contact = Backbone.Model.extend({});
 
     // Define and Instantiate a Backbone Collection of Contact Model objects
-    ContactManager.ContactCollection = Backbone.Collection.extend({ model: ContactManager.Contact }); //, comparator: "firstName" });
+    ContactManager.ContactCollection = Backbone.Collection.extend({
+        model: ContactManager.Contact,
+        comparator: function(contact) {
+            return contact.get("firstName") + " " + contact.get("lastName"); // Actually works w/o whitespace.
+        }
+    });
 
     //--------------------
     // Define and instantiate the view for each individual Model within a CollectionView
@@ -65,17 +70,14 @@
     ContactManager.on("start", function () {
 
         // (Model) Declare the ContactCollection objects
-//        var contacts = new ContactManager.ContactCollection([
-//            { firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0163" },
-//            { firstName: "Alice", lastName: "Arten", phoneNumber: "555-0184" },
-//            { firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0129" }
-//        ]);
-
-        var contacts = new ContactManager.ContactCollection();
-        contacts.comparator = "firstName";
-        contacts.add(new ContactManager.Contact({ firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0163" }));
-        contacts.add(new ContactManager.Contact({ firstName: "Alice", lastName: "Arten", phoneNumber: "555-0184" }));
-        contacts.add(new ContactManager.Contact({ firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0129" }));
+        var contacts = new ContactManager.ContactCollection([
+            { firstName: "Alice", lastName: "Tampen", phoneNumber: "555-0163" },
+            { firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0184" },
+            { firstName: "Alice", lastName: "Artsy", phoneNumber: "555-0129" },
+            { firstName: "Alice", lastName: "Arten", phoneNumber: "555-0163" },
+            { firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0129" },
+            { firstName: "Alice", lastName: "Smith", phoneNumber: "555-0184" }
+        ]);
 
         // (View) Declare the view object and populate with the model.
         var contactsListView = new ContactManager.ContactsView({ collection: contacts });
