@@ -46,7 +46,7 @@
     ContactManager.Contact = Backbone.Model.extend({});
 
     // Define and Instantiate a Backbone Collection of Contact Model objects
-    ContactManager.ContactCollection = Backbone.Collection.extend({ model: ContactManager.Contact });
+    ContactManager.ContactCollection = Backbone.Collection.extend({ model: ContactManager.Contact, comparator: "firstName" });
 
     //--------------------
     // Define and instantiate the view for each individual Model within a CollectionView
