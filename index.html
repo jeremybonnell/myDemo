@@ -30,57 +30,28 @@
 <script src="./assets/js/vendor/underscore.js"></script>
 <script src="./assets/js/vendor/backbone.js"></script>
 <script src="./assets/js/vendor/backbone.marionette.js"></script>
+<script src="./assets/js/app.js"></script>
+<script src="./assets/js/entities/contact.js"></script>
+<script src="./assets/js/apps/contacts/list/list_view.js"></script>
+
 
 <script type="text/javascript">
-
-    // Marionette app declaration
-    var ContactManager = new Marionette.Application();
-
-    // Define the html region in which we will populate the CollectionView
-    ContactManager.addRegions({
-        mainRegion: "#main-region"
-    });
-
-    //--------------------
-    // Define and Instantiate a single Contact Model object
-    ContactManager.Contact = Backbone.Model.extend({});
-
-    // Define and Instantiate a Backbone Collection of Contact Model objects
-    ContactManager.ContactCollection = Backbone.Collection.extend({
-        model: ContactManager.Contact,
-        comparator: function(contact) {
-            return contact.get("firstName") + " " + contact.get("lastName"); // Actually works w/o whitespace.
-        }
-    });
-
-    //--------------------
-    // Define and instantiate the view for each individual Model within a CollectionView
-    ContactManager.ContactItemView = Marionette.ItemView.extend({ tagName: "li", template: "#contact-list-item" });
-
-    // Define and Instantiate a Marionette CollectionView object
-    // which contain the objects of type ContactManager.ContactItemView
-    ContactManager.ContactsView = Marionette.CollectionView.extend({
-        tagName: "ul",                              //surround with <ul/>, Our template is of tag type <li/>
-        childView: ContactManager.ContactItemView   //itemView: ContactManager.ContactItemView (DEPRECATED: itemView)
-    });
 
     //--------------------
     // Create On-Start method which
     // Defines the events to occur when the application starts, using our pre-defined types.
     ContactManager.on("start", function () {
 
-        // (Model) Declare the ContactCollection objects
-        var contacts = new ContactManager.ContactCollection([
-            { firstName: "Alice", lastName: "Tampen", phoneNumber: "555-0163" },
-            { firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0184" },
-            { firstName: "Alice", lastName: "Artsy", phoneNumber: "555-0129" },
-            { firstName: "Alice", lastName: "Arten", phoneNumber: "555-0163" },
-            { firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0129" },
-            { firstName: "Alice", lastName: "Smith", phoneNumber: "555-0184" }
-        ]);
+        // Get the contact request object from entities directory
+        // The parameter is subjective however, since it just matches up which request object we need by going to ContactManager.reqres.setHandler()
+        var contacts = ContactManager.request("contact:entities");
+
+        // Realistically foo should be its own entity, i.e. "gibberish:foo" (get foo request obj from gibberish directory
+        // A foo request object if we need a different type of information
+        var foo = ContactManager.request("foo:entities");
 
         // (View) Declare the view object and populate with the model.
-        var contactsListView = new ContactManager.ContactsView({ collection: contacts });
+        var contactsListView = new ContactManager.ContactsApp.List.Contacts({ collection: contacts });
 
         // Place the view in the region.
         ContactManager.mainRegion.show(contactsListView);
