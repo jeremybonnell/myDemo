@@ -47,20 +47,6 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
         ]);
     };
 
-    // Realistically foo should be its own entity
-    var foo;
-    //foo.comparator = "lastName";  // No go. Could probably use with another model where comparator was not already defined
-    var initializeFoo = function() {
-        foo = new Entities.ContactCollection([
-            { id: 1, firstName: "Tom", lastName: "Tampa", phoneNumber: "555-0163" },
-            { id: 2, firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0184" },
-            { id: 3, firstName: "Jillian", lastName: "Fartsy", phoneNumber: "555-0129" },
-            { id: 4, firstName: "Cassius", lastName: "Clay", phoneNumber: "555-0117" },
-            { id: 5, firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0192" },
-            { id: 6, firstName: "Cynthia", lastName: "Behemoth", phoneNumber: "555-0135" }
-        ]);
-    };
-
     /**
      * API object to contain the functions we will allow the rest of the application to use.
      * Note: The getContactEntities function isn’t technically public because it’s not attached to the Entities module.
@@ -73,25 +59,12 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
                 initializeContacts();
             }
             return contacts;
-        },
-
-        // Realistically foo should be its own entity
-        getFooEntities: function () {
-            if (foo === undefined) {
-                initializeFoo();
-            }
-            return foo;
         }
     };
 
     // Can have multiple resres setHandlers(). The parameter is used to map with request we require.
     ContactManager.reqres.setHandler("contact:entities", function(){
         return API.getContactEntities();
-    });
-
-    // Realistically foo should be its own entity
-    ContactManager.reqres.setHandler("foo:entities", function(){
-        return API.getFooEntities();
     });
 });
 
