@@ -15,6 +15,10 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
         alertPrivate(message);
     };
 
+    Entities.alertPublicMsg = function(message) {
+        alert(message);
+    };
+
     // call public alert function
     //Entities.alertPublic("Hello");
 
