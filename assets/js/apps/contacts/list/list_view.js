@@ -5,7 +5,18 @@
 ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbone, Marionette, $, _){
 
     // Define and instantiate the view for each individual Model within a CollectionView
-    List.Contact = Marionette.ItemView.extend({ tagName: "tr", template: "#contact-list-item" });
+    List.Contact = Marionette.ItemView.extend({
+        tagName: "tr",
+        template: "#contact-list-item",
+
+        events: {
+            "click": "highlightName"
+        },
+
+        highlightName: function() {
+            this.$el.toggleClass("warning");    // row elements currently have to class. Click would toggle (default <-> warning)
+        }
+    });
 
     // Define and Instantiate a Marionette CollectionView object
     // which contain the objects of type List.Contact
