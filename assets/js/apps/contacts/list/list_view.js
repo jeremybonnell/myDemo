@@ -13,7 +13,8 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             "click": "highlightName"
         },
 
-        highlightName: function() {
+        highlightName: function(e) {
+            e.preventDefault();
             this.$el.toggleClass("warning");    // row elements currently have to class. Click would toggle (default <-> warning)
         }
     });
