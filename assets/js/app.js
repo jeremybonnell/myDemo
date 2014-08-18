@@ -9,3 +9,10 @@ ContactManager.addRegions({
     mainRegion: "#main-region"
 
 });
+
+//--------------------Triggered by calling ContactManager.start(); in index.html
+// Create On-Start method which
+// Defines the events to occur when the application starts, using our pre-defined types.
+ContactManager.on("start", function () {
+    ContactManager.ContactsApp.List.Controller.listContacts();
+});

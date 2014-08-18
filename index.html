@@ -25,6 +25,8 @@
     <%- firstName %> <%- lastName %>
 </script>
 
+<!--The order of scripts is important! Some scripts are dependant on other scripts. Even though there are functions within a script file may be called-->
+<!--at a different moment in time, we still consider the code as running sequentially within each script files based on the order they are declared below.-->
 <script src="./assets/js/vendor/jquery.js"></script>
 <script src="./assets/js/vendor/json2.js"></script>
 <script src="./assets/js/vendor/underscore.js"></script>
@@ -33,27 +35,18 @@
 <script src="./assets/js/app.js"></script>
 <script src="./assets/js/entities/contact.js"></script>
 <script src="./assets/js/apps/contacts/list/list_view.js"></script>
+<script src="./assets/js/apps/contacts/list/list_controller.js"></script>
 
 
 <script type="text/javascript">
 
-    //--------------------
-    // Create On-Start method which
-    // Defines the events to occur when the application starts, using our pre-defined types.
-    ContactManager.on("start", function () {
+//    Note that since we’re starting our app after all javascript files have been loaded, and
+//    we’re not modifying the DOM in any way, we don’t need to wrap our starter code in
+//    a $(document).ready() call (which would slow down startup). If your application requires
+//    waiting until the DOM is ready before starting, don’t forget to wrap the call to start in a
+//    $(document).ready().
 
-        // Get the contact request object from entities directory
-        // The parameter is subjective however, since it just matches up which request object we need by going to ContactManager.reqres.setHandler()
-        var contacts = ContactManager.request("contact:entities");
-
-        // (View) Declare the view object and populate with the model.
-        var contactsListView = new ContactManager.ContactsApp.List.Contacts({ collection: contacts });
-
-        // Place the view in the region.
-        ContactManager.mainRegion.show(contactsListView);
-    });
-
-    // Call the start() method above
+    // Calling the start() method fires the ContactManager.on("start", function () {}); located in app.js
     ContactManager.start();
 </script>
 </body>
