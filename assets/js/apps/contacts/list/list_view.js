@@ -14,7 +14,9 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
         },
 
         highlightName: function(e) {
-            e.preventDefault();
+            var itemClicked = $(e.target);
+            var itemText = itemClicked.text();
+            ContactManager.Entities.alertPublic(itemText);
             this.$el.toggleClass("warning");    // row elements currently have to class. Click would toggle (default <-> warning)
         }
     });

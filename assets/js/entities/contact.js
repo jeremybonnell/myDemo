@@ -4,19 +4,19 @@
 
 ContactManager.module("Entities", function(Entities, ContactManager, Backbone, Marionette, $, _){
 
-//    // private alert function
-//    var alertPrivate = function(message) {
-//        alert("Private alert: " + message);
-//    };
-//
-//    // public alert function
-//    Entities.alertPublic = function(message) {
-//        alert("I will now call alertPrivate");
-//        alertPrivate(message);
-//    };
-//
-//    // call public alert function
-//    Entities.alertPublic("Hello");
+    // private alert function
+    var alertPrivate = function(message) {
+        alert("Private alert: " + message);
+    };
+
+    // public alert function
+    Entities.alertPublic = function(message) {
+        alert("I will now call alertPrivate");
+        alertPrivate(message);
+    };
+
+    // call public alert function
+    //Entities.alertPublic("Hello");
 
     /**
      *  ---------------------------------------------------------------------------------------------
