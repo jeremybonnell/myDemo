@@ -16,6 +16,14 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                 collection: contacts
             });
 
+            // Signature of "contact:delete" but (all lowercase) say which element type within the collection should be invoking this function.
+            // since itemview is deprecated, we use childView or childview rather...
+            // (the elements defined and contained within the List.Contacts - Marionette.CompositeView).
+
+            contactsListView.on("childview:contact:delete", function(childView, model) {
+                contacts.remove(model);
+            });
+
             ContactManager.mainRegion.show(contactsListView);
         }
     }

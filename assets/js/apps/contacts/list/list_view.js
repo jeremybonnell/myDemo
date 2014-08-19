@@ -29,15 +29,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
         deleteClicked: function(e) {
             e.stopPropagation();
+            this.trigger("contact:delete", this.model); // route to function with "contact:delete" signature
 
             // Remove alert and actually delete the item from the model.
             // alert("delete button was clicked");
-
-//            Since we haven’t yet gotten around to implementing data persistence, our collection (and the models
-//            it contains) exists only in memory. So “deleting” a model is simply a matter of removing it from the
-//            collection
-            
-            this.model.collection.remove(this.model);
         }
     });
 
