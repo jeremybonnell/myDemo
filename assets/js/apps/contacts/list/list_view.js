@@ -33,6 +33,15 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
             // Remove alert and actually delete the item from the model.
             // alert("delete button was clicked");
+        },
+
+//        OVERRIDE JQUERY'S/JAVASCRIPT'S 'Remove' FUNCTION:
+//        Marionette calls an item view’s remove method (if it’s defined)
+//        when the corresponding model is removed from the collection referenced by the collection/composite view.
+//        Since this only calls fadeOut(), the item is not actually being removed. Check the DOM, gives style="display:none"
+
+        remove: function() {
+            this.$el.fadeOut();
         }
     });
 
