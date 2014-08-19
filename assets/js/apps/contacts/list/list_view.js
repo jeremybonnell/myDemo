@@ -51,22 +51,6 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
         className: "table table-hover",
         template: "#contact-list",
         childView: List.Contact,                // (DEPRECATED: itemView), use childView
-        childViewContainer: "tbody",             // (DEPRECATED: itemViewContainer), use childViewContainer
-
-        // Marionette MAGIC!
-        // Since contactsListView gets affected when a delete button is pressed and it is the view for List.Contacts
-        // contactsListView.on("childview:contact:delete", is called...
-        // WELL! If we name a function according to the signature of the above function call, it will automatically be triggered
-        // When the callback function above completes...
-
-        // i.e. contactsListView.on("childview:contact:delete" ====> onChildviewContactDelete
-        // (just CAP the beginning letter of each event name section)
-        // FREAKING AWESOME!
-
-        onChildviewContactDelete: function() {
-            this.$el.fadeOut(1000, function () {
-                $(this).fadeIn(1000);
-            });
-        }
+        childViewContainer: "tbody"             // (DEPRECATED: itemViewContainer), use childViewContainer
     });
 });
