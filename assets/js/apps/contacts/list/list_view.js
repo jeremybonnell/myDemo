@@ -27,8 +27,6 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             this.$el.toggleClass("warning");    // row elements currently have to class. Click would toggle (default <-> warning)
         },
 
-        // deleteClicked goes to controller which calls remove, but since List.Contact has a remove() override function
-        // it actually comes back here (this object's/model's implementation) to call remove. Freaking weird. bobbing back and forth.
         deleteClicked: function(e) {
             e.stopPropagation();
             this.trigger("contact:delete", this.model); // route to function with "contact:delete" signature
@@ -37,13 +35,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // alert("delete button was clicked");
         },
 
-//        OVERRIDE JQUERY'S/JAVASCRIPT'S 'Remove' FUNCTION:
-//        Marionette calls an item view’s remove method (if it’s defined)
-//        when the corresponding model is removed from the collection referenced by the collection/composite view.
-//        Since this only calls fadeOut(), the item is not actually being removed. Check the DOM, gives style="display:none"
-        // here is the override function for remove()...
+        // Now Fade AND actually remove thyself...
         remove: function() {
-            this.$el.fadeOut();
+            var self = this;
+            this.$el.fadeOut(function() {
+                Marionette.ItemView.prototype.remove.call(self);
+            });
         }
     });
 
