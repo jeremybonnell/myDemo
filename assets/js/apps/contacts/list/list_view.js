@@ -9,8 +9,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
         tagName: "tr",
         template: "#contact-list-item",
 
+        // Define the event listeners based off click events from specific .css classes.
+        // Doing it this way allows us to prevent bubbling up to the DOM and can call preventDefault and stopPropagation
+        // So page is not reloaded and row is not highlighted on button clicks.
         events: {
             "click": "highlightName",
+            "click td a.js-show": "showClicked",
             "click button.js-delete": "deleteClicked"
 
             // use function above to stop propagation (Do not highlight the row if click on the button itself)
@@ -25,6 +29,14 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // ContactManager.Entities.alertPublicMsg(itemText);
 
             this.$el.toggleClass("warning");    // row elements currently have to class. Click would toggle (default <-> warning)
+        },
+
+        showClicked: function(e){
+            // is an <a href/>. by default, would reload page and navigate to url (which is '#' (bogus in this case)). preventDefault... prevents this.
+            e.preventDefault();
+            // Stops highlight on clicking this button
+            e.stopPropagation();
+            this.trigger("contact:show", this.model);
         },
 
         deleteClicked: function(e) {

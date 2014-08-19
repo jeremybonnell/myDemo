@@ -20,6 +20,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // since itemview is deprecated, we use childView or childview rather...
             // (the elements defined and contained within the List.Contacts - Marionette.CompositeView).
 
+            contactsListView.on("childview:contact:show", function(childView, model) {
+
+                // Controller calling a controller
+                ContactManager.ContactsApp.Show.Controller.showContact(model);
+            });
+
             contactsListView.on("childview:contact:delete", function(childView, model) {
                 contacts.remove(model);
             });
