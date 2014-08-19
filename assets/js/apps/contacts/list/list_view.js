@@ -11,7 +11,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
         events: {
             "click": "highlightName",
-            "click button": "deleteClicked"
+            "click button.js-delete": "deleteClicked"
 
             // use function above to stop propagation (Do not highlight the row if click on the button itself)
             // "click button": function(){ alert("delete button was clicked"); }
