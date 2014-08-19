@@ -24,6 +24,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                 contacts.remove(model);
             });
 
+            // Exercise:
+            contactsListView.on("childview:contact:highlight", function(childView, model) {
+                console.log("Highlighting toggled on model: ", model);
+            });
+
+
             ContactManager.mainRegion.show(contactsListView);
         }
     }

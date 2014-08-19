@@ -25,6 +25,9 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // ContactManager.Entities.alertPublicMsg(itemText);
 
             this.$el.toggleClass("warning");    // row elements currently have to class. Click would toggle (default <-> warning)
+
+            // Exercise:
+            this.trigger("contact:highlight", this.model);
         },
 
         deleteClicked: function(e) {
