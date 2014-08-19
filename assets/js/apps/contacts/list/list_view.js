@@ -10,14 +10,26 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
         template: "#contact-list-item",
 
         events: {
-            "click": "highlightName"
+            "click": "highlightName",
+            "click button": "deleteClicked"
+
+            // use function above to stop propagation (Do not highlight the row if click on the button itself)
+            // "click button": function(){ alert("delete button was clicked"); }
         },
 
         highlightName: function(e) {
             var itemClicked = $(e.target);
             var itemText = itemClicked.text();
-            ContactManager.Entities.alertPublicMsg(itemText);
+
+            // Comment out the alert that called the public function:
+            // ContactManager.Entities.alertPublicMsg(itemText);
+
             this.$el.toggleClass("warning");    // row elements currently have to class. Click would toggle (default <-> warning)
+        },
+
+        deleteClicked: function(e) {
+            e.stopPropagation();
+            alert("delete button was clicked");
         }
     });
 
