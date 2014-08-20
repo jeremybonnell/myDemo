@@ -10,6 +10,15 @@ ContactManager.addRegions({
 
 });
 
+ContactManager.navigate = function(route, options){
+    options || (options = {});
+    Backbone.history.navigate(route, options);
+};
+
+ContactManager.getCurrentRoute = function(){
+    return Backbone.history.fragment
+};
+
 //--------------------Triggered by calling ContactManager.start(); in index.html
 // Create On-Start method which
 // Defines the events to occur when the application starts, using our pre-defined types.
@@ -20,12 +29,8 @@ ContactManager.on("start", function() {
         Backbone.history.start();
 
         // Here’s what we want to do: if the user comes to our app at the root URL, let’s redirect him to “#contacts”. The basic way of accomplishing this would be:
-        if(Backbone.history.fragment === "") {      // triple === in javascript has no type conversion before evaluating. but essentially the same as ==
-            Backbone.history.navigate("contacts");
-            ContactManager.ContactsApp.List.Controller.listContacts();
-
-//        // As a sideNote: Could also use the following line of code instead of the 2 preceding lines...Bad practice though I guess.
-//        Backbone.history.navigate("contacts", {trigger: true});
+        if(this.getCurrentRoute() === "") {      // triple === in javascript has no type conversion before evaluating. but essentially the same as ==
+            ContactManager.trigger("contacts:list");
         }
     }
 });

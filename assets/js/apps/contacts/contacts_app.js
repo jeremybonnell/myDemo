@@ -22,6 +22,11 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
         }
     };
 
+    ContactManager.on("contacts:list", function(){
+        ContactManager.navigate("contacts");
+        API.listContacts();
+    });
+
 //    why are we listening for the “initialize:after” or [on("start"] rather event in other circumstances, instead of using addInitializer?
 //    Execution order. We can add initializers with calls to addInitializer, and the provided functions will be executed
 //    when the application is running. Then, once all initializers have been run, the [on("start"] event is triggered.
