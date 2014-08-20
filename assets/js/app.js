@@ -18,14 +18,14 @@ ContactManager.addRegions({
 ContactManager.on("start", function() {
     if (Backbone.history) {
         Backbone.history.start();
-    }
 
-//    Here’s what we want to do: if the user comes to our app at the root URL, let’s redirect him to “#contacts”. The basic way of accomplishing this would be:
-    if(Backbone.history.fragment === "") {      // triple === in javascript has no type conversion before evaluating. but essentially the same as ==
-        Backbone.history.navigate("contacts");
-        ContactManager.ContactsApp.List.Controller.listContacts();
+        // Here’s what we want to do: if the user comes to our app at the root URL, let’s redirect him to “#contacts”. The basic way of accomplishing this would be:
+        if(Backbone.history.fragment === "") {      // triple === in javascript has no type conversion before evaluating. but essentially the same as ==
+            Backbone.history.navigate("contacts");
+            ContactManager.ContactsApp.List.Controller.listContacts();
 
 //        // As a sideNote: Could also use the following line of code instead of the 2 preceding lines...Bad practice though I guess.
 //        Backbone.history.navigate("contacts", {trigger: true});
+        }
     }
 });
