@@ -33,7 +33,9 @@
     <td><%- firstName %></td>
     <td><%- lastName %></td>
     <td>
-        <a href="#" class="btn btn-small js-show">
+        <!--Add the proper link to the show button, (href="#contacts/<%- id %>") so users
+        can do things like opening the link in a new tab, copying the link location, etc.-->
+        <a href="#contacts/<%- id %>" class="btn btn-small js-show">
             <i class="icon-eye-open"/>
             Show
         </a>
