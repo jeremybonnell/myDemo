@@ -29,9 +29,14 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
         }
     };
 
+    // Trigger functions to direct to the correct page.
     ContactManager.on("contacts:list", function(){
         ContactManager.navigate("contacts");
         API.listContacts();
+    });
+    ContactManager.on("contact:show", function(id){
+        ContactManager.navigate("contacts/" + id);
+        API.showContact(id);
     });
 
 //    why are we listening for the “initialize:after” or [on("start"] rather event in other circumstances, instead of using addInitializer?

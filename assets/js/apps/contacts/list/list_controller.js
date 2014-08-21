@@ -21,11 +21,15 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // (the elements defined and contained within the List.Contacts - Marionette.CompositeView).
 
             contactsListView.on("childview:contact:show", function(childView, model) {
-                // called by show button click event, app does not restart so ContactManager.on("start",...) not called
-                // and therefore, does NOT go through router. So append "contacts/id" to the URL.
-                ContactManager.navigate("contacts/" + model.get("id"));
-                // Controller calling a controller
-                ContactManager.ContactsApp.Show.Controller.showContact(model);
+//                // called by show button click event, app does not restart so ContactManager.on("start",...) not called
+//                // and therefore, does NOT go through router. So append "contacts/id" to the URL.
+//                ContactManager.navigate("contacts/" + model.get("id"));
+//                // Controller calling a controller
+//                ContactManager.ContactsApp.Show.Controller.showContact(model);
+
+                // Make DRY by triggering the new "contact:show" function in contacts_app.js routing controller.
+                // Different signature than the function we're currently in... 2nd Parameter id instead of model.
+                ContactManager.trigger("contact:show", model.get("id"));
             });
 
             contactsListView.on("childview:contact:delete", function(childView, model) {
