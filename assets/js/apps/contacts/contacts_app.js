@@ -11,14 +11,21 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
 
 //            Note that the callback function (e.g. listContacts) specified in the appRoutes object above must exist in the router’s controller.
 //            In other words, all the callbacks used in the appRoutes object must be located in our API object.
-            "contacts": "listContacts"
+            "contacts": "listContacts",
+            "contacts/:id": "showContact"
         }
     });
 
     var API = {
+        // Question: Do these functions have to be named the same as the ones in the respective controllers?
+        //           They currently are... But is it necessary??? Try it out sometime.
+        // Answer:   No...! No they don't!!! Just done for consistency.
         listContacts: function(){
             //console.log("route to list contacts was triggered");
             ContactsApp.List.Controller.listContacts();
+        },
+        showContact: function(id){
+            ContactsApp.Show.Controller.showContact(id);
         }
     };
 

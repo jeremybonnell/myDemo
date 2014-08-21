@@ -21,7 +21,9 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // (the elements defined and contained within the List.Contacts - Marionette.CompositeView).
 
             contactsListView.on("childview:contact:show", function(childView, model) {
-
+                // called by show button click event, app does not restart so ContactManager.on("start",...) not called
+                // and therefore, does NOT go through router. So append "contacts/id" to the URL.
+                ContactManager.navigate("contacts/" + model.get("id"));
                 // Controller calling a controller
                 ContactManager.ContactsApp.Show.Controller.showContact(model);
             });
