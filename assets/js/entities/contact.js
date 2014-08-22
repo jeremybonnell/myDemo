@@ -80,12 +80,22 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
                 return initializeContacts();
             }
             return contacts;
+        },
+
+        getContactEntity: function(contactId){
+            var contact = new Entities.Contact({id: contactId});
+            contact.fetch();
+            return contact;
         }
     };
 
     // Can have multiple resres setHandlers(). The parameter is used to map with request we require.
     ContactManager.reqres.setHandler("contact:entities", function(){
         return API.getContactEntities();
+    });
+
+    ContactManager.reqres.setHandler("contact:entity", function(id){
+        return API.getContactEntity(id);
     });
 });
 
