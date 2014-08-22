@@ -28,20 +28,29 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
      */
 
     // Define and Instantiate a single Contact Model object
-    Entities.Contact = Backbone.Model.extend({});
+    Entities.Contact = Backbone.Model.extend({
+        urlRoot: "contacts"
+    });
+    // The only difference between our using web storage instead of a remote server is THIS LINE...
+    Entities.configureStorage(Entities.Contact);
 
     // Define and Instantiate a Backbone Collection of Contact Model objects
     Entities.ContactCollection = Backbone.Collection.extend({
+        url: "contacts",
         model: Entities.Contact,
         comparator: function(contact) {
             return contact.get("firstName") + " " + contact.get("lastName"); // Actually works w/o whitespace.
         }
     });
+    // AND THIS LINE!
+    Entities.configureStorage(Entities.ContactCollection);
 
     // Instantiate the Model Collection Object - contacts
     var contacts;
+
+    // Build and Save ContactCollections (will only be called if persisted data is empty though.
     var initializeContacts = function() {
-        contacts = new Entities.ContactCollection([
+        var contacts = new Entities.ContactCollection([
             { id: 1, firstName: "Alice", lastName: "Tampen", phoneNumber: "555-0163" },
             { id: 2, firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0184" },
             { id: 3, firstName: "Alice", lastName: "Artsy", phoneNumber: "555-0129" },
@@ -49,6 +58,11 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
             { id: 5, firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0192" },
             { id: 6, firstName: "Alice", lastName: "Smith", phoneNumber: "555-0135" }
         ]);
+
+        contacts.forEach(function(contact){
+            contact.save();
+        });
+        return contacts;
     };
 
     /**
@@ -58,9 +72,12 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     */
     var API =
     {
-        getContactEntities: function () {
-            if (contacts === undefined) {
-                initializeContacts();
+        // Since we don't really have a means to initialize the persisted data, we will store a new list once it is empty.
+        getContactEntities: function(){
+            var contacts = new Entities.ContactCollection();
+            contacts.fetch();
+            if(contacts.length === 0){
+                return initializeContacts();
             }
             return contacts;
         }
