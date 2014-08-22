@@ -6,9 +6,15 @@ ContactManager.module("ContactsApp.Show", function(Show, ContactManager, Backbon
         showContact: function(id){
             var contacts = ContactManager.request("contact:entities");
             var model = contacts.get(id);
-            var contactView = new Show.Contact({
-                model: model
-            });
+            var contactView;
+            if(model !== undefined) {
+                contactView = new Show.Contact({
+                    model: model
+                });
+            }
+            else{
+                contactView = new Show.MissingContact();
+            }
             // Not worrying about console.log anymore. Let's show the view
             //console.log("showContact called for model ", model)
 
