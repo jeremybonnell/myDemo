@@ -76,7 +76,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
         getContactEntities: function(){
             var contacts = new Entities.ContactCollection();
             contacts.fetch();
-            if(contacts.length === 0){
+            if(contacts === undefined || contacts.length === 0){
                 return initializeContacts();
             }
             return contacts;
@@ -84,8 +84,18 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 
         getContactEntity: function(contactId){
             var contact = new Entities.Contact({id: contactId});
-            contact.fetch();
-            return contact;
+            var defer = $.Deferred();
+            setTimeout(function() {
+                contact.fetch({
+                    success: function(data){
+                        defer.resolve(data);
+                    },
+                    error: function(data){
+                        defer.resolve(undefined);
+                    }
+                });
+            }, 2000);
+            return defer.promise();
         }
     };
 
