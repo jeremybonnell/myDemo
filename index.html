@@ -55,6 +55,12 @@
     <div class="alert alert-error">This contact doesn't exist !</div>
 </script>
 
+<script type="text/template" id="loading-view">
+    <h1>Artificial Loading Delay</h1>
+    <p>Data loading is delayed to demonstrate using a loading view.</p>
+    <div id="spinner"></div>
+</script>
+
 <!--The order of scripts is important! Some scripts are dependant on other scripts. Even though there are functions within a script file may be called-->
 <!--at a different moment in time, we still consider the code as running sequentially within each script files based on the order they are declared below.-->
 <script src="./assets/js/vendor/jquery.js"></script>
@@ -63,10 +69,13 @@
 <script src="./assets/js/vendor/backbone.js"></script>
 <script src="./assets/js/vendor/backbone.localstorage.js"></script>
 <script src="./assets/js/vendor/backbone.marionette.js"></script>
+<script src="./assets/js/vendor/spin.js"></script>
+<script src="./assets/js/vendor/spin.jquery.js"></script>
 
 <script src="./assets/js/app.js"></script>
 <script src="./assets/js/apps/config/storage/localstorage.js"></script>
 <script src="./assets/js/entities/contact.js"></script>
+<script src="./assets/js/common/views.js"></script>
 
 <script src="./assets/js/apps/contacts/contacts_app.js"></script>
 <script src="./assets/js/apps/contacts/list/list_view.js"></script>
