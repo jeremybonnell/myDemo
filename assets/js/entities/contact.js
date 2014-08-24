@@ -62,7 +62,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
         contacts.forEach(function(contact){
             contact.save();
         });
-        return contacts;
+        return contacts.models;
     };
 
     /**
@@ -75,11 +75,21 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
         // Since we don't really have a means to initialize the persisted data, we will store a new list once it is empty.
         getContactEntities: function(){
             var contacts = new Entities.ContactCollection();
-            contacts.fetch();
-            if(contacts === undefined || contacts.length === 0){
-                return initializeContacts();
-            }
-            return contacts;
+            var defer = $.Deferred();
+            contacts.fetch({
+                success: function (data) {
+                    defer.resolve(data);
+                }
+            });
+
+            var promise = defer.promise();
+            $.when(promise).done(function(contacts) {
+                if (contacts === undefined || contacts.length === 0) {
+                    var models = initializeContacts();
+                    contacts.reset(models); // reset just reloads all items back in to the collection
+                }
+            });
+            return promise;
         },
 
         getContactEntity: function(contactId){
