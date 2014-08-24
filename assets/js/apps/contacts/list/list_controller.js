@@ -9,6 +9,9 @@
 ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbone, Marionette, $, _) {
     List.Controller = { // List.Controller is the controller object
         listContacts: function () {
+            var loadingView = new ContactManager.Common.Views.Loading();
+            ContactManager.mainRegion.show(loadingView);
+
             var fetchingContacts = ContactManager.request("contact:entities");
 
             // List.Contacts object is defined in list_view.js (inherits from Marionette.CollectionView)
