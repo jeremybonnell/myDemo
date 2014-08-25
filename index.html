@@ -1,99 +1,100 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Marionette Contact Manager</title>
-    <link href="./assets/css/bootstrap.css" rel="stylesheet">
-    <link href="./assets/css/application.css" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <title>Marionette Contact Manager</title>
+        <link href="./assets/css/bootstrap.css" rel="stylesheet">
+        <link href="./assets/css/application.css" rel="stylesheet">
+    </head>
 
-<body>
+    <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <span class="brand">Contact manager</span>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <span class="brand">Contact manager</span>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<div id="main-region" class="container">
-    <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
-</div>
+        <div id="main-region" class="container">
+            <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
+        </div>
 
-<script type="text/template" id="contact-list">
-    <thead>
-        <tr> <th>First Name</th> <th>Last Name</th> <th></th> </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</script>
+        <script type="text/template" id="contact-list">
+            <thead>
+                <tr> <th>First Name</th> <th>Last Name</th> <th></th> </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </script>
 
-<script type="text/template" id="contact-list-item">
-    <td><%- firstName %></td>
-    <td><%- lastName %></td>
-    <td>
-        <!--Add the proper link to the show button, (href="#contacts/<%- id %>") so users
-        can do things like opening the link in a new tab, copying the link location, etc.-->
-        <a href="#contacts/<%- id %>" class="btn btn-small js-show">
-            <i class="icon-eye-open"/>
-            Show
-        </a>
-        <button class="btn btn-small js-delete">
-            <i class="icon-remove"/>
-            Delete
-        </button>
-    </td>
-</script>
+        <script type="text/template" id="contact-list-item">
+            <td><%- firstName %></td>
+            <td><%- lastName %></td>
+            <td>
+                <!--Add the proper link to the show button, (href="#contacts/<%- id %>") so users
+                can do things like opening the link in a new tab, copying the link location, etc.-->
+                <a href="#contacts/<%- id %>" class="btn btn-small js-show">
+                    <i class="icon-eye-open"/>
+                    Show
+                </a>
+                <button class="btn btn-small js-delete">
+                    <i class="icon-remove"/>
+                    Delete
+                </button>
+            </td>
+        </script>
 
-<script type="text/template" id="contact-view">
-    <h1><%- firstName %> <%- lastName %></h1>
-    <p><strong>Phone number:</strong> <%- phoneNumber %></p>
-</script>
+        <script type="text/template" id="contact-view">
+            <h1><%- firstName %> <%- lastName %></h1>
+            <p><strong>Phone number:</strong> <%- phoneNumber %></p>
+        </script>
 
-<script type="text/template" id="missing-contact-view">
-    <div class="alert alert-error">This contact doesn't exist !</div>
-</script>
+        <script type="text/template" id="missing-contact-view">
+            <div class="alert alert-error">This contact doesn't exist !</div>
+        </script>
 
-<script type="text/template" id="loading-view">
-    <h1><%- title %></h1>
-    <p><%- message %></p>
-    <div id="spinner"></div>
-</script>
+        <script type="text/template" id="loading-view">
+            <h1><%- title %></h1>
+            <p><%- message %></p>
+            <div id="spinner"></div>
+        </script>
 
-<!--The order of scripts is important! Some scripts are dependant on other scripts. Even though there are functions within a script file may be called-->
-<!--at a different moment in time, we still consider the code as running sequentially within each script files based on the order they are declared below.-->
-<script src="./assets/js/vendor/jquery.js"></script>
-<script src="./assets/js/vendor/json2.js"></script>
-<script src="./assets/js/vendor/underscore.js"></script>
-<script src="./assets/js/vendor/backbone.js"></script>
-<script src="./assets/js/vendor/backbone.localstorage.js"></script>
-<script src="./assets/js/vendor/backbone.marionette.js"></script>
-<script src="./assets/js/vendor/spin.js"></script>
-<script src="./assets/js/vendor/spin.jquery.js"></script>
+        <!--The order of scripts is important! Some scripts are dependant on other scripts. Even though there are functions within a script file may be called-->
+        <!--at a different moment in time, we still consider the code as running sequentially within each script files based on the order they are declared below.-->
+        <script src="./assets/js/vendor/jquery.js"></script>
+        <script src="./assets/js/vendor/json2.js"></script>
+        <script src="./assets/js/vendor/underscore.js"></script>
+        <script src="./assets/js/vendor/backbone.js"></script>
+        <script src="./assets/js/vendor/backbone.localstorage.js"></script>
+        <script src="./assets/js/vendor/backbone.marionette.js"></script>
+        <script src="./assets/js/vendor/spin.js"></script>
+        <script src="./assets/js/vendor/spin.jquery.js"></script>
 
-<script src="./assets/js/app.js"></script>
-<script src="./assets/js/apps/config/storage/localstorage.js"></script>
-<script src="./assets/js/entities/contact.js"></script>
-<script src="./assets/js/common/views.js"></script>
+        <script src="./assets/js/app.js"></script>
+        <script src="./assets/js/apps/config/storage/localstorage.js"></script>
+        <script src="./assets/js/entities/contact.js"></script>
+        <script src="./assets/js/common/views.js"></script>
 
-<script src="./assets/js/apps/contacts/contacts_app.js"></script>
-<script src="./assets/js/apps/contacts/list/list_view.js"></script>
-<script src="./assets/js/apps/contacts/list/list_controller.js"></script>
-<script src="./assets/js/apps/contacts/show/show_view.js"></script>
-<script src="./assets/js/apps/contacts/show/show_controller.js"></script>
+        <script src="./assets/js/apps/contacts/contacts_app.js"></script>
+        <script src="./assets/js/apps/contacts/list/list_view.js"></script>
+        <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
+        <script src="./assets/js/apps/contacts/show/show_view.js"></script>
+        <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
 
 
-<script type="text/javascript">
+        <script type="text/javascript">
 
-//    Note that since we’re starting our app after all javascript files have been loaded, and
-//    we’re not modifying the DOM in any way, we don’t need to wrap our starter code in
-//    a $(document).ready() call (which would slow down startup). If your application requires
-//    waiting until the DOM is ready before starting, don’t forget to wrap the call to start in a
-//    $(document).ready().
+        //    Note that since we’re starting our app after all javascript files have been loaded, and
+        //    we’re not modifying the DOM in any way, we don’t need to wrap our starter code in
+        //    a $(document).ready() call (which would slow down startup). If your application requires
+        //    waiting until the DOM is ready before starting, don’t forget to wrap the call to start in a
+        //    $(document).ready().
 
-    // Calling the start() method fires the ContactManager.on("start", function () {}); located in app.js
-    ContactManager.start();
-</script>
-</body>
+            // Calling the start() method fires the ContactManager.on("start", function () {}); located in app.js
+            ContactManager.start();
+        </script>
+    </body>
 </html>
