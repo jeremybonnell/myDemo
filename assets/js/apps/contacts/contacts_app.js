@@ -12,7 +12,8 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
 //            Note that the callback function (e.g. listContacts) specified in the appRoutes object above must exist in the router’s controller.
 //            In other words, all the callbacks used in the appRoutes object must be located in our API object.
             "contacts": "listContacts",
-            "contacts/:id": "showContact"
+            "contacts/:id": "showContact",
+            "contacts/:id/edit": "editContact"
         }
     });
 
@@ -26,10 +27,13 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
         },
         showContact: function(id){
             ContactsApp.Show.Controller.showContact(id);
+        },
+        editContact: function(id){
+            ContactsApp.Edit.Controller.editContact(id);
         }
     };
 
-    // Trigger functions to direct to the correct page.
+    // Handlers: Trigger functions to direct to the correct page.
     ContactManager.on("contacts:list", function(){
         ContactManager.navigate("contacts");
         API.listContacts();
@@ -37,6 +41,10 @@ ContactManager.module("ContactsApp", function(ContactsApp, ContactManager, Backb
     ContactManager.on("contact:show", function(id){
         ContactManager.navigate("contacts/" + id);
         API.showContact(id);
+    });
+    ContactManager.on("contact:edit", function(id){
+        ContactManager.navigate("contacts/" + id + "/edit");
+        API.editContact(id);
     });
 
 //    why are we listening for the “initialize:after” or [on("start"] rather event in other circumstances, instead of using addInitializer?
