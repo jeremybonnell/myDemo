@@ -29,7 +29,23 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 
     // Define and Instantiate a single Contact Model object
     Entities.Contact = Backbone.Model.extend({
-        urlRoot: "contacts"
+        urlRoot: "contacts",
+
+        validate: function(attrs, options) {
+            var errors = {};
+            if (!attrs.firstName) {
+                errors.firstName = "can't be blank";
+            }
+            if (!attrs.lastName) {
+                errors.lastName = "can't be blank";
+            }
+            else if (attrs.lastName.length < 2) {
+                errors.lastName = "is too short";
+            }
+            if(!_.isEmpty(errors)){
+                return errors;
+            }
+        }
     });
     // The only difference between our using web storage instead of a remote server is THIS LINE...
     Entities.configureStorage(Entities.Contact);

@@ -11,7 +11,9 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
 
         submitClicked: function(e){
             e.preventDefault();
-            console.log("edit contact");
+            var data = Backbone.Syphon.serialize(this);
+            this.trigger("form:submit", data);
+            //console.log("edit contact");
         }
     });
 });
