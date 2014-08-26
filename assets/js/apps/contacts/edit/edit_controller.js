@@ -23,7 +23,7 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
                             ContactManager.trigger("contact:show", contact.get("id"));
                         }
                         else{
-                            alert("Unable to save data!");
+                            view.triggerMethod("form:data:invalid", contact.validationError);
                         }
                     });
                 }
