@@ -6,8 +6,8 @@ var ContactManager = new Marionette.Application();
 
 // Define the html region in which we will populate the CollectionView
 ContactManager.addRegions({
-    mainRegion: "#main-region"
-
+    mainRegion: "#main-region",
+    dialogRegion: "#dialog-region"
 });
 
 ContactManager.navigate = function(route, options){

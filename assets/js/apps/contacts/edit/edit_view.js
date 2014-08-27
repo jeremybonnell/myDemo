@@ -5,6 +5,10 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
     Edit.Contact = Marionette.ItemView.extend({
         template: "#contact-form",
 
+        initialize: function(){
+            this.title = "Edit " + this.model.get("firstName") + " " + this.model.get("lastName");
+        },
+
         events: {
             "click button.js-submit": "submitClicked"
         },
@@ -14,6 +18,27 @@ ContactManager.module("ContactsApp.Edit", function(Edit, ContactManager, Backbon
             var data = Backbone.Syphon.serialize(this);
             this.trigger("form:submit", data);
             //console.log("edit contact");
+        },
+
+        // WHEN DOES THIS GET CALLED??? IS IT AUTOMATICALLY INVOKED???
+        // Gets called automatically, if defined, in backbone-marionette.js show() function... when:
+        // ContactManager.mainRegion.show(view); {is called in edit_controller.js} AND
+        // ContactManager.dialogRegion.show(view); {is called in list_controller.js}
+        onRender: function(){
+            if( ! this.options.asModal){
+                var $title = $("<h1>", { text: this.title });
+                this.$el.prepend($title);
+            }
+        },
+
+        onShow: function(){
+            if(this.options.asModal){
+                this.$el.dialog({
+                    modal: true,
+                    title: this.title,
+                    width: "auto"
+                })
+            }
         },
 
         // Marionette Magic trigger function

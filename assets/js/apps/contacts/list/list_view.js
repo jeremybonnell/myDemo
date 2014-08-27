@@ -15,6 +15,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
         events: {
             "click": "highlightName",
             "click td a.js-show": "showClicked",
+            "click td a.js-edit": "editClicked",
             "click button.js-delete": "deleteClicked"
 
             // use function above to stop propagation (Do not highlight the row if click on the button itself)
@@ -37,6 +38,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // Stops highlight on clicking this button
             e.stopPropagation();
             this.trigger("contact:show", this.model);
+        },
+
+        editClicked: function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            this.trigger("contact:edit", this.model);
         },
 
         deleteClicked: function(e) {
