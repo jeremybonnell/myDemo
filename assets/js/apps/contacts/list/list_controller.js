@@ -48,7 +48,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                     // of duplicating code in list_controller & edit_controller... Hopefully he addresses this within the context of this book!!!
                     view.on("form:submit", function(data){
                         if(model.save(data)){
-                        // code to be determined...
+                            childView.render();
+                            //ContactManager.dialogRegion.close(); // .close() DEPRECATED {use .empty()}
+                            ContactManager.dialogRegion.empty();
+                            childView.flash("success");
                         }
                         else{
                             view.triggerMethod("form:data:invalid", model.validationError);

@@ -22,6 +22,15 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
             // "click button": function(){ alert("delete button was clicked"); }
         },
 
+        flash: function(cssClass){
+            var $view = this.$el;
+            $view.hide().toggleClass(cssClass).fadeIn(800, function(){
+                setTimeout(function(){
+                    $view.toggleClass(cssClass)
+                }, 500);
+            });
+        },
+
         highlightName: function(e) {
             var itemClicked = $(e.target);
             var itemText = itemClicked.text();
