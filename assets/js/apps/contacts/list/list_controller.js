@@ -43,15 +43,6 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                         asModal: true
                     });
 
-                    // HAD HERE ORIGINALLY, BUT AUTHOR SAID IT BELONGS IN THE VIEW OBJECT ITSELF
-                    // Edit.Contact in edit_view.js now has an onShow() function. SWEET!
-//                    view.on("show", function() {
-//                        this.$el.dialog({
-//                            modal: true,
-//                            title: view.title,
-//                            width: "auto"
-//                        });
-//                    });
                     ContactManager.dialogRegion.show(view);
                 });
 
