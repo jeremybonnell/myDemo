@@ -25,8 +25,8 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                 });
 
                 contactsListLayout.on("show", function(){
-                    contactsListLayout.panelRegion.show(contactsListPanel);
-                    contactsListLayout.contactsRegion.show(contactsListView);
+                    contactsListLayout.panelRegion.show(contactsListPanel);     // SHOVE contactsListPanel IN (houses the button)
+                    contactsListLayout.contactsRegion.show(contactsListView);   // THEN SHOVE contactsListView IN (houses the contacts)
                 });
 
                 // Signature of "contact:delete" but (all lowercase) say which element type within the collection should be invoking this function.
