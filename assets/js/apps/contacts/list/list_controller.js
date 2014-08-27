@@ -14,12 +14,20 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
             var fetchingContacts = ContactManager.request("contact:entities");
 
+            // Layouts within the List View (Separate regions)
+            var contactsListLayout = new List.Layout();
+            var contactsListPanel = new List.Panel();
+
             // List.Contacts object is defined in list_view.js (inherits from Marionette.CollectionView)
             $.when(fetchingContacts).done(function(contacts) {
                 var contactsListView = new List.Contacts({
                     collection: contacts
                 });
 
+                contactsListLayout.on("show", function(){
+                    contactsListLayout.panelRegion.show(contactsListPanel);
+                    contactsListLayout.contactsRegion.show(contactsListView);
+                });
 
                 // Signature of "contact:delete" but (all lowercase) say which element type within the collection should be invoking this function.
                 // since itemview is deprecated, we use childView or childview rather...
@@ -66,7 +74,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                     model.destroy();
                 });
 
-                ContactManager.mainRegion.show(contactsListView);
+                ContactManager.mainRegion.show(contactsListLayout);
             });
         }
     }

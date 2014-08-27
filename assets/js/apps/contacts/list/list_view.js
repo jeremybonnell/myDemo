@@ -4,6 +4,23 @@
 
 ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbone, Marionette, $, _){
 
+    // DEFINE THE LAYOUT TO SUBDIVIDE REGIONS WITHIN THE VIEW!!!
+    //------------------------------------------------------------------
+    List.Layout = Marionette.LayoutView.extend({  //  .Layout used in book. WRONG! Causes error. Use LayoutView
+        template: "#contact-list-layout",
+
+        regions: {
+            panelRegion: "#panel-region",           // Region where button will be thrown in to. Could potentially be more than just a button
+            contactsRegion: "#contacts-region"      // Region where Contacts will be thrown in to.
+        }
+    });
+
+    // Layout for (Button Template)
+    List.Panel = Marionette.ItemView.extend({
+        template: "#contact-list-panel"             // Button Template
+    });
+    //------------------------------------------------------------------
+
     // Define and instantiate the view for each individual Model within a CollectionView
     List.Contact = Marionette.ItemView.extend({
         tagName: "tr",
