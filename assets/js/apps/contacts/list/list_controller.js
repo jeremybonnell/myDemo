@@ -43,6 +43,18 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                         asModal: true
                     });
 
+                    // Attach a save method to the list_controller when opened within the modal window.
+                    // Would be nice to have all Edit code in one area and just have an option to render as a default page or modal window, instead
+                    // of duplicating code in list_controller & edit_controller... Hopefully he addresses this within the context of this book!!!
+                    view.on("form:submit", function(data){
+                        if(model.save(data)){
+                        // code to be determined...
+                        }
+                        else{
+                            view.triggerMethod("form:data:invalid", model.validationError);
+                        }
+                    });
+
                     ContactManager.dialogRegion.show(view);
                 });
 
