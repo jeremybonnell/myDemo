@@ -29,7 +29,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 
     // Define and Instantiate a single Contact Model object
     Entities.Contact = Backbone.Model.extend({
-        urlRoot: "contacts",
+        urlRoot: "/contacts",
 
         validate: function(attrs, options) {
             var errors = {};
@@ -48,38 +48,39 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
         }
     });
     // The only difference between our using web storage instead of a remote server is THIS LINE...
-    Entities.configureStorage(Entities.Contact);
+    //Entities.configureStorage(Entities.Contact);
 
     // Define and Instantiate a Backbone Collection of Contact Model objects
     Entities.ContactCollection = Backbone.Collection.extend({
-        url: "contacts",
+        url: "/contacts",
         model: Entities.Contact,
         comparator: function(contact) {
             return contact.get("firstName") + " " + contact.get("lastName"); // Actually works w/o whitespace.
         }
     });
     // AND THIS LINE!
-    Entities.configureStorage(Entities.ContactCollection);
+    //Entities.configureStorage(Entities.ContactCollection);
 
     // Instantiate the Model Collection Object - contacts
     var contacts;
 
-    // Build and Save ContactCollections (will only be called if persisted data is empty though.
-    var initializeContacts = function() {
-        var contacts = new Entities.ContactCollection([
-            { id: 1, firstName: "Alice", lastName: "Tampen", phoneNumber: "555-0163" },
-            { id: 2, firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0184" },
-            { id: 3, firstName: "Alice", lastName: "Artsy", phoneNumber: "555-0129" },
-            { id: 4, firstName: "Alice", lastName: "Arten", phoneNumber: "555-0117" },
-            { id: 5, firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0192" },
-            { id: 6, firstName: "Alice", lastName: "Smith", phoneNumber: "555-0135" }
-        ]);
-
-        contacts.forEach(function(contact){
-            contact.save();
-        });
-        return contacts.models;
-    };
+//    // NOT USING ANYMORE! WILL BE DONE IN myServer.js using Node.js. BUT WILL HAVE TO FIND A WAY TO SAVE!!!
+//    // Build and Save ContactCollections (will only be called if persisted data is empty though.
+//    var initializeContacts = function() {
+//        var contacts = new Entities.ContactCollection([
+//            { id: 1, firstName: "Alice", lastName: "Tampen", phoneNumber: "555-0163" },
+//            { id: 2, firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0184" },
+//            { id: 3, firstName: "Alice", lastName: "Artsy", phoneNumber: "555-0129" },
+//            { id: 4, firstName: "Alice", lastName: "Arten", phoneNumber: "555-0117" },
+//            { id: 5, firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0192" },
+//            { id: 6, firstName: "Alice", lastName: "Smith", phoneNumber: "555-0135" }
+//        ]);
+//
+//        contacts.forEach(function(contact){
+//            contact.save();
+//        });
+//        return contacts.models;
+//    };
 
     /**
      * API object to contain the functions we will allow the rest of the application to use.
@@ -99,12 +100,15 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
             });
 
             var promise = defer.promise();
-            $.when(promise).done(function(contacts) {
-                if (contacts === undefined || contacts.length === 0) {
-                    var models = initializeContacts();
-                    contacts.reset(models); // reset just reloads all items back in to the collection
-                }
-            });
+
+//            // Using Node.js now... Would have to deal with differently. This is just creating if empty
+//            // Will most likely have to deal with in myServer.js...
+//            $.when(promise).done(function(contacts) {
+//                if (contacts === undefined || contacts.length === 0) {
+//                    var models = initializeContacts();
+//                    contacts.reset(models); // reset just reloads all items back in to the collection
+//                }
+//            });
             return promise;
         },
 

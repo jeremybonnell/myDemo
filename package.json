@@ -1,0 +1,24 @@
+{
+  "name": "my-demo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "myDemo ======",
+  "main": "myServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremybonnell/myDemo"
+  },
+  "author": "Jeremy Bonnell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremybonnell/myDemo/issues"
+  },
+  "homepage": "https://github.com/jeremybonnell/myDemo",
+  "dependencies": {
+    "express": "^4.8.7",
+    "simple-http-proxy": "^0.5.11"
+  }
+}
