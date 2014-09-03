@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jeremybonnell/myDemo",
   "dependencies": {
+    "body-parser": "^1.7.0",
     "express": "^4.8.7",
     "simple-http-proxy": "^0.5.11"
   }
