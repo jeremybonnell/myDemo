@@ -1,3 +1,6 @@
+// Belongs to the Main ContactManager application, so stored in the 'common' folder to make
+// the view available to the whole application!
+
 ContactManager.module("Common.Views", function(Views, ContactManager, Backbone, Marionette, $, _){
     Views.Loading = Marionette.ItemView.extend({
         template: "#loading-view",

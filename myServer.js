@@ -48,6 +48,7 @@ var dataContainer =
     { id: 6, firstName: "Alice", lastName: "Smith", phoneNumber: "555-0135" }];
 
 app.get("/contacts", function(req, res){
+    //var data = json.get('localhost:12209/lease/0');
     res.send(dataContainer);
 });
 
@@ -121,3 +122,21 @@ app.listen(3000); // app.listen(port);
 // Using my own defined objects from Modules??? Like what was done in Mongoose ORM...
 // How to connect to MY service, using a URL, hosted by my ServiceStack application. Since I won't actually be accessing any DB in here.
 
+
+// Can look into Curl or SoapUI
+//
+//var obj = {};
+//obj.objectName = 'foo';
+//obj.foos = [{firstname: 'foo1', lastname: 'foo-you'}, {firstname: 'foo2', lastname: 'foo-you-2'}];
+//var json = JSON.stringify(obj);
+//var options = {
+//    method: "get",
+//    data: json,
+//    headers: {'Content-type': 'application/json', 'Accept': 'application/json'}
+//};
+//rest.get('http://localhost/servicestack-api/getmethod', options).
+//    on('complete', function(data, response){
+//        console.log(data);
+//        console.log(response.statusCode);
+//
+//    });
