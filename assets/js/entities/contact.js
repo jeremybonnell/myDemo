@@ -35,7 +35,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
             firstName: "",
             lastName: "",
             phoneNumber: "",
-            id: undefined       // Book did not implement 'id'. This causes problems on NewContact Creation.
+            id: undefined       // Book did not declare 'id'. This causes problems on NewContact Creation.
         },                      // Set as undefined so NodeServer knows whether to 'PUT' or 'POST'
 
         validate: function(attrs, options) {
