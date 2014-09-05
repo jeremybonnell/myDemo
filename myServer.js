@@ -105,8 +105,23 @@ app.post("/contacts", function(req, res){
     var firstName = req.body.firstName;
     var lastName = req.body.lastName;
     var phoneNumber = req.body.phoneNumber;
+    var id = 1;
 
-    var contact = { id: '7', firstName: firstName, lastName: lastName, phoneNumber: phoneNumber };
+//    if (dataContainer.length > 0) {
+//        var highestId = dataContainer.max(function (c) { return c.id; }).get("id");
+//        id = highestId + 1;
+//    }
+
+    if (dataContainer.length > 0) {
+        for (var i = 0; i < dataContainer.length; i++) {
+            if (dataContainer[i].id > id) {
+                id = dataContainer[i].id;
+            }
+        }
+        id += 1;
+    }
+
+    var contact = { id: id, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber };
 
     dataContainer.push(contact)
     return res.send(dataContainer);

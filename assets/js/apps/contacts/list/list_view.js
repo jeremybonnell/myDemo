@@ -17,7 +17,11 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
     // Layout for (Button Template)
     List.Panel = Marionette.ItemView.extend({
-        template: "#contact-list-panel"             // Button Template
+        template: "#contact-list-panel",            // Button Template
+
+        // Hmmm a triggers hash. Sorta like an event, but will actually navigate to a handler with the "contact:new"
+        // Signature within the app. The list_controller.js contactsListPanel.on("contact:new", function(){}) in this case.
+        triggers: { "click button.js-new": "contact:new" }
     });
     //------------------------------------------------------------------
 

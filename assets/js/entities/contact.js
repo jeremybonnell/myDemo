@@ -31,6 +31,13 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     Entities.Contact = Backbone.Model.extend({
         urlRoot: "/contacts",
 
+        defaults: {                 // Default Values so New.View won't choke if trying to display undefined fields.
+            firstName: "",
+            lastName: "",
+            phoneNumber: "",
+            id: undefined       // Book did not implement 'id'. This causes problems on NewContact Creation.
+        },                      // Set as undefined so NodeServer knows whether to 'PUT' or 'POST'
+
         validate: function(attrs, options) {
             var errors = {};
             if (!attrs.firstName) {
