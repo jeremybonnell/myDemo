@@ -26,6 +26,11 @@ ContactManager.module("ContactsApp.Common.Views", function(Views, ContactManager
             this.trigger("form:submit", data);
         },
 
+        // WHEN DOES THIS GET CALLED??? IS IT AUTOMATICALLY INVOKED???
+        // Gets called automatically, if defined in my code, from backbone-marionette.js show() function... when:
+        // ContactManager.mainRegion.show(view); {is called in edit_controller.js} AND
+        // ContactManager.dialogRegion.show(view); {is called in list_controller.js} for new modal
+        // ContactManager.dialogRegion.show(view); {is called in list_controller.js} for edit modal
         onRender: function(){
             if( ! this.options.asModal){
                 var $title = $("<h1>", { text: this.title });
@@ -43,6 +48,11 @@ ContactManager.module("ContactsApp.Common.Views", function(Views, ContactManager
             }
         },
 
+        // Marionette Magic trigger function
+        // Remember that triggerMethod will automatically execute a function whose name corresponds to the event. There’s nothing else
+        // for us to do: provided we name the function correctly, Marionette will execute it.
+        // view.triggerMethod("form:data:invalid", contact.validationError); in edit_controller.js  AND
+        // view.triggerMethod("form:data:invalid", newContact.validationError); in list_controller.js
         onFormDataInvalid: function(errors){
             var $view = this.$el;
 
@@ -62,7 +72,9 @@ ContactManager.module("ContactsApp.Common.Views", function(Views, ContactManager
                 $controlGroup.append($errorEl).addClass("error");
             }
 
+            //Don't really need () after parameterLess functions, but do so I know it's a function.
             clearFormErrors();
+            // Underscore’s each method (Register any new errors
             _.each(errors, markErrors);
         }
     });

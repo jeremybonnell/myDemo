@@ -95,11 +95,28 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
     // Define and Instantiate a Marionette CollectionView object
     // which contain the objects of type List.Contact
+    // Overriding appendHtml after the collection has been rendered!!!
     List.Contacts = Marionette.CompositeView.extend({
         tagName: "table",                       //surround with <ul/>, Our template is of tag type <li/>
         className: "table table-hover",
         template: "#contact-list",
         childView: List.Contact,                // (DEPRECATED: itemView), use childView
-        childViewContainer: "tbody"             // (DEPRECATED: itemViewContainer), use childViewContainer
+        childViewContainer: "tbody",             // (DEPRECATED: itemViewContainer), use childViewContainer
+
+        initialize: function(){
+            this.listenTo(this.collection, 'change', function(){                    // He used 'reset'... Didn't work! I used 'change' all is good.
+                this.attachHtml = function(collectionView, childView, index){       // appendHtml deprecated -> attachHtml
+                    collectionView.$el.append(childView.el);
+                }
+            });
+        },
+
+        //onCompositeCollectionRendered: function(){ // His original triggered method, deprecated. Not triggered.
+        // backbone.marionette.js calls a function with the signature of 'render:collection' which invokes this.
+        onRenderCollection: function(){
+            this.attachHtml = function(collectionView, childView, index){
+                collectionView.$el.prepend(childView.el);
+            }
+        }
     });
 });
