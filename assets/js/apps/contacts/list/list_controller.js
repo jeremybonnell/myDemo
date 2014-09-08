@@ -96,7 +96,9 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                 // since itemview is deprecated, we use childView or childview rather...
                 // (the elements defined and contained within the List.Contacts - Marionette.CompositeView).
 
-                contactsListView.on("childview:contact:show", function (childView, model) {
+                // Called with a trigger now instead of an event that, by default, passes args AND are stopped with preventDefault and stopPropagation.
+                // args is an object that holds the view, model, and collection. We used to just send model when the function was invoked with an event.
+                contactsListView.on("childview:contact:show", function (childView, args) {
 //                // called by show button click event, app does not restart so ContactManager.on("start",...) not called
 //                // and therefore, does NOT go through router. So append "contacts/id" to the URL.
 //                ContactManager.navigate("contacts/" + model.get("id"));
@@ -105,10 +107,13 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
                     // Make DRY by triggering the new "contact:show" function in contacts_app.js routing controller.
                     // Different signature than the function we're currently in... 2nd Parameter id instead of model.
-                    ContactManager.trigger("contact:show", model.get("id"));
+                    ContactManager.trigger("contact:show", args.model.get("id"));
                 });
 
-                contactsListView.on("childview:contact:edit", function(childView, model){
+                // Called with a trigger now instead of an event that, by default, passes args AND are stopped with preventDefault and stopPropagation.
+                // args is an object that holds the view, model, and collection. We used to just send model when the function was invoked with an event.
+                contactsListView.on("childview:contact:edit", function(childView, args){
+                    var model = args.model;
                     var view = new ContactManager.ContactsApp.Edit.Contact({
                         model: model,
                         asModal: true
@@ -132,9 +137,11 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
                     ContactManager.dialogRegion.show(view);
                 });
 
-                contactsListView.on("childview:contact:delete", function (childView, model) {
+                // Called with a trigger now instead of an event that, by default, passes args AND are stopped with preventDefault and stopPropagation.
+                // args is an object that holds the view, model, and collection. We used to just send model when the function was invoked with an event.
+                contactsListView.on("childview:contact:delete", function (childView, args) {
                     //contacts.remove(model);
-                    model.destroy();
+                    args.model.destroy();
                 });
 
                 ContactManager.mainRegion.show(contactsListLayout);
