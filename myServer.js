@@ -6,6 +6,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var jsonRequest = require('request-json');
+var client = jsonRequest.newClient('http://localhost:12209/lease/')
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST and PUT
@@ -47,6 +49,16 @@ var dataContainer =
     { id: 5, firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0192" },
     { id: 6, firstName: "Alice", lastName: "Smith", phoneNumber: "555-0135" }];
 
+function handleCallback(error, res, callback) {
+    if (error) {
+        throw error;
+    }
+
+    if (callback !== 'undefined') {
+        callback(res);
+    }
+}
+
 app.get("/contacts", function(req, res){
     //var data = json.get('localhost:12209/lease/0');
     res.send(dataContainer);
@@ -55,11 +67,49 @@ app.get("/contacts", function(req, res){
 app.get("/contacts/:id", function(req, res){
     var id = parseInt(req.params.id);
 
-    for(var i=0; i<dataContainer.length; i++){
-        if (dataContainer[i].id === id){
-            return res.send(dataContainer[i]);
+    var contact = { id: id, FirstName: '', LastName: '', PhoneNumber: '' };
+    client.get(id.toString(), function (err, response, body) {
+        if (!err) {
+            contact.firstName = body.Client.FirstName;
+            contact.lastName = body.Client.LastName;
+            contact.phoneNumber = body.Client.PhoneNumber;
+            //handleCallback(null, res, callback); //handleCallback(null, AggregateTRX(req, body), callback);
+            return res.send(contact);
         }
-    }
+        else {
+            handleCallback(err, null, callback);
+        }
+    });
+
+
+
+
+//    var contact = { id: 0, firstName: '', lastName: '', phoneNumber: '' };
+//    var obj = {FirstName: '', LastName: '', PhoneNumber: ''};
+//    obj.objectName = 'ClientInfo';
+//
+//    //obj.foos = [{firstName: 'foo1', lastName: 'foo-you'}, {firstname: 'foo2', lastname: 'foo-you-2'}];
+//    var json = JSON.stringify(obj);
+//    var options = {
+//        method: "get",
+//        data: json,
+//        headers: {'Content-type': 'application/json', 'Accept': 'application/json'}
+//    };
+//    router.get('http://localhost:12209/lease/0', options).on('complete', function(data, response) {
+//        console.log(response.data);
+//        //console.log(response.statusCode);
+//        contact = { id: id, firstName: data.FirstName, lastName: data.LastName, phoneNumber: data.PhoneNumber };
+//    });
+    //return res.send(contact);
+
+
+
+
+//    for(var i=0; i<dataContainer.length; i++){
+//        if (dataContainer[i].id === id){
+//            return res.send(dataContainer[i]);
+//        }
+//    }
 });
 
 app.delete("/contacts/:id", function(req, res){
