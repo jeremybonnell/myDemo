@@ -8,6 +8,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var jsonRequest = require('request-json');
 var client = jsonRequest.newClient('http://localhost:12209/lease/')
+var redis = require('redis');
+var connectRedis = require('connect-redis');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST and PUT
@@ -80,36 +82,6 @@ app.get("/contacts/:id", function(req, res){
             handleCallback(err, null, callback);
         }
     });
-
-
-
-
-//    var contact = { id: 0, firstName: '', lastName: '', phoneNumber: '' };
-//    var obj = {FirstName: '', LastName: '', PhoneNumber: ''};
-//    obj.objectName = 'ClientInfo';
-//
-//    //obj.foos = [{firstName: 'foo1', lastName: 'foo-you'}, {firstname: 'foo2', lastname: 'foo-you-2'}];
-//    var json = JSON.stringify(obj);
-//    var options = {
-//        method: "get",
-//        data: json,
-//        headers: {'Content-type': 'application/json', 'Accept': 'application/json'}
-//    };
-//    router.get('http://localhost:12209/lease/0', options).on('complete', function(data, response) {
-//        console.log(response.data);
-//        //console.log(response.statusCode);
-//        contact = { id: id, firstName: data.FirstName, lastName: data.LastName, phoneNumber: data.PhoneNumber };
-//    });
-    //return res.send(contact);
-
-
-
-
-//    for(var i=0; i<dataContainer.length; i++){
-//        if (dataContainer[i].id === id){
-//            return res.send(dataContainer[i]);
-//        }
-//    }
 });
 
 app.delete("/contacts/:id", function(req, res){
@@ -186,22 +158,5 @@ app.listen(3000); // app.listen(port);
 // How to Make an array into an object to send in the response.
 // Using my own defined objects from Modules??? Like what was done in Mongoose ORM...
 // How to connect to MY service, using a URL, hosted by my ServiceStack application. Since I won't actually be accessing any DB in here.
-
-
-// Can look into Curl or SoapUI
-//
-//var obj = {};
-//obj.objectName = 'foo';
-//obj.foos = [{firstname: 'foo1', lastname: 'foo-you'}, {firstname: 'foo2', lastname: 'foo-you-2'}];
-//var json = JSON.stringify(obj);
-//var options = {
-//    method: "get",
-//    data: json,
-//    headers: {'Content-type': 'application/json', 'Accept': 'application/json'}
-//};
-//rest.get('http://localhost/servicestack-api/getmethod', options).
-//    on('complete', function(data, response){
-//        console.log(data);
-//        console.log(response.statusCode);
-//
-//    });
+// What is Curl and SoapUI? Should we consider using?
+// How to return an id from a 'POST' if you are making asynchronous calls.
