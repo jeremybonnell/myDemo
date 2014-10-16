@@ -7,7 +7,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var jsonRequest = require('request-json');
-var client = jsonRequest.newClient('http://localhost:12209/lease/')
+var client = jsonRequest.newClient('http://localhost:12209/')
 var redis = require('redis');
 var connectRedis = require('connect-redis');
 
@@ -70,7 +70,7 @@ app.get("/contacts/:id", function(req, res){
     var id = parseInt(req.params.id);
 
     var contact = { id: id, FirstName: '', LastName: '', PhoneNumber: '' };
-    client.get(id.toString(), function (err, response, body) {
+    client.get('lease/' + id.toString(), function (err, response, body) {
         if (!err) {
             contact.firstName = body.Client.FirstName;
             contact.lastName = body.Client.LastName;
