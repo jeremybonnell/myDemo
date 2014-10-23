@@ -69,19 +69,25 @@ app.get("/contacts", function(req, res){
 app.get("/contacts/:id", function(req, res){
     var id = parseInt(req.params.id);
 
-    var contact = { id: id, FirstName: '', LastName: '', PhoneNumber: '' };
-    client.get('lease/' + id.toString(), function (err, response, body) {
-        if (!err) {
-            contact.firstName = body.Client.FirstName;
-            contact.lastName = body.Client.LastName;
-            contact.phoneNumber = body.Client.PhoneNumber;
-            //handleCallback(null, res, callback); //handleCallback(null, AggregateTRX(req, body), callback);
-            return res.send(contact);
+    for(var i=0; i<dataContainer.length; i++){
+        if (dataContainer[i].id === id){
+            return res.send(dataContainer[i]);
         }
-        else {
-            handleCallback(err, null, callback);
-        }
-    });
+    }
+
+//    var contact = { id: id, FirstName: '', LastName: '', PhoneNumber: '' };
+//    client.get('lease/' + id.toString(), function (err, response, body) {
+//        if (!err) {
+//            contact.firstName = body.Client.FirstName;
+//            contact.lastName = body.Client.LastName;
+//            contact.phoneNumber = body.Client.PhoneNumber;
+//            //handleCallback(null, res, callback); //handleCallback(null, AggregateTRX(req, body), callback);
+//            return res.send(contact);
+//        }
+//        else {
+//            handleCallback(err, null, callback);
+//        }
+//    });
 });
 
 app.delete("/contacts/:id", function(req, res){
